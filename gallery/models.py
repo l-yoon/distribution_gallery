@@ -10,10 +10,13 @@ class Post(models.Model):
         super().save(*args, **kwargs)
 
         # 나머지 데이터베이스에도 동일하게 저장
-        for db in ['postgres', 'mysql']:
+        for db in ['postgres']:  # 'mysql' 등 추가 가능
             try:
+                # 새로운 kwargs를 만들어 using 키워드를 추가하고 나머지 전달
+                db_kwargs = kwargs.copy()
+                db_kwargs['using'] = db
                 with transaction.atomic(using=db):
-                    super(Post, self).save(using=db, *args, **kwargs)
+                    super(Post, self).save(*args, **db_kwargs)
             except Exception as e:
                 # 오류가 발생했을 경우 로그 출력 (혹은 원하는 방식으로 처리 가능)
                 print(f"Failed to save to database {db}: {e}")

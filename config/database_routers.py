@@ -19,7 +19,7 @@ class MultiDBRouter:
         """
         Allow any relation if both models are in the same database.
         """
-        db_set = {'default', 'postgres', 'mysql'}
+        db_set = {'default', 'postgres'} ##, 'mysql'
         if obj1._state.db in db_set and obj2._state.db in db_set:
             return True
         return None

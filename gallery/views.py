@@ -17,7 +17,7 @@ def index(request):
     return render(request, 'gallery/index.html')
 
 def get_post(request):
-    databases = ['default', 'postgres', 'mysql']
+    databases = ['default', 'postgres'] ##, 'mysql'
     for db in databases:
         try:
             # 기본적으로 'default'에서 먼저 시도

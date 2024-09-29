@@ -12,39 +12,16 @@ services:
     ports:
       - "5432:5432"
 
-  mysql:
-    image: mysql
-    container_name: mysql_db
-    environment:
-      - MYSQL_ROOT_PASSWORD=rootpassword
-      - MYSQL_DATABASE=mysql
-      - MYSQL_USER=mysql
-      - MYSQL_PASSWORD=mysql
-    ports:
-      - "3306:3306"
-    volumes:
-      - ./data/mysql:/var/lib/mysql
+  # mysql:
+  #   image: mysql:8.0
+  #   container_name: mysql_db
+  #   environment:
+  #     # - MYSQL_ROOT_PASSWORD=rootpassword
+  #     - MYSQL_DATABASE=mysql
+  #     - MYSQL_USER=mysql
+  #     - MYSQL_PASSWORD=mysql
+  #   ports:
+  #     - "3306:3306"
+  #   volumes:
+  #     - ./data/mysql:/var/lib/mysql
 
-  web:
-    image: python:3.10
-    container_name: django_web
-    volumes:
-      - .:/app
-    working_dir: /app
-    command: bash -c "pip install --upgrade pip && pip install -r requirements.txt && python manage.py runserver 0.0.0.0:8000"
-    ports:
-      - "8000:8000"
-    depends_on:
-      - postgres
-      - mysql
-    environment:
-      - PYTHONPATH=/app
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_HOST=postgres
-      - MYSQL_DATABASE=mysql
-      - MYSQL_USER=mysql
-      - MYSQL_PASSWORD=mysql
-      - MYSQL_HOST=mysql
-      - MYSQL_PORT=3306
