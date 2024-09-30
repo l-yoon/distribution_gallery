@@ -12,12 +12,16 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import environ
 import os
 from pathlib import Path
+import pymysql
 
 
 env = environ.Env(
     # set casting, default value
     DEBUG=(bool, False)
 )
+
+
+pymysql.install_as_MySQLdb()
 
 # Set the project base directory
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -32,7 +36,7 @@ DEBUG = env('DEBUG')
 # exception if SECRET_KEY not in os.environ
 SECRET_KEY = env('SECRET_KEY')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost', '*']
 
 
 # Application definition
@@ -46,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'gallery',
     'rest_framework',
+    'django_seed'
 ]
 
 MIDDLEWARE = [
@@ -82,12 +87,25 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, "db.sqlite3"),
+    },
+    'postgres': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env('POSTGRES_DB'),
+        'USER': env('POSTGRES_USER'),
+        'PASSWORD': env('POSTGRES_PASSWORD'),
+        'HOST': env('POSTGRES_HOST'),
+        'PORT': env('POSTGRES_PORT'),
     }
 }
+
+
+DATABASE_ROUTERS = ['config.database_routers.MultiDBRouter']
 
 
 # Password validation

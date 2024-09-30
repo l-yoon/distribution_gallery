@@ -6,7 +6,9 @@
 # local
 .idea
 config.py
+.env
 
+./data/postgres
 
 ### macOS ###
 # General
