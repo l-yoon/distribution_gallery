@@ -35,7 +35,7 @@ DEBUG = env('DEBUG')
 # exception if SECRET_KEY not in os.environ
 SECRET_KEY = env('SECRET_KEY')
 
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost', '*']
+ALLOWED_HOSTS = ['43.202.68.0','0.0.0.0', '127.0.0.1', 'localhost', '*']
 
 
 # Application definition
