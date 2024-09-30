@@ -96,23 +96,14 @@ DATABASES = {
     },
     'postgres': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': '127.0.0.1',
-        'PORT': 5432,
+        'NAME': env('POSTGRES_DB'),
+        'USER': env('POSTGRES_USER'),
+        'PASSWORD': env('POSTGRES_PASSWORD'),
+        'HOST': env('POSTGRES_HOST'),
+        'PORT': env('POSTGRES_PORT'),
     }
-    # ,
-
-    # 'mysql': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'mysql',
-    #     'USER': 'mysql',
-    #     'PASSWORD': 'mysql',
-    #     'HOST': '127.0.0.1',
-    #     'PORT': 3306,
-    # }
 }
+
 
 DATABASE_ROUTERS = ['config.database_routers.MultiDBRouter']
 

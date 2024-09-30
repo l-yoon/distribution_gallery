@@ -8,7 +8,7 @@
 config.py
 .env
 
-./data
+./data/postgres
 
 ### macOS ###
 # General
