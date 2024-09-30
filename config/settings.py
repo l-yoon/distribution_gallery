@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import environ
 import os
 from pathlib import Path
-import pymysql
+
 
 
 env = environ.Env(
@@ -21,7 +21,6 @@ env = environ.Env(
 )
 
 
-pymysql.install_as_MySQLdb()
 
 # Set the project base directory
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
