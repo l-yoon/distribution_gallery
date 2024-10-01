@@ -124,7 +124,7 @@
     <script>
         // 모든 게시물을 조회하는 함수
         function getPosts() {
-            axios.get('http://43.203.226.5:8000/api/posts/')
+            axios.get('http://43.203.226.5/api/posts/')
                 .then(function (response) {
                     const postsContainer = document.getElementById('posts');
                     postsContainer.innerHTML = ''; // 기존 내용을 지웁니다
@@ -148,7 +148,7 @@
             const title = document.getElementById('postTitle').value;
             const description = document.getElementById('postDescription').value;
 
-            axios.post('http://43.203.226.5:8000/api/posts/', {
+            axios.post('http://43.203.226.5/api/posts/', {
                 title: title,
                 description: description
             })
@@ -163,7 +163,7 @@
 
         // 게시물을 삭제하는 함수
         function deletePost(postId) {
-            axios.delete(`http://43.203.226.5:8000/api/posts/${postId}/`)
+            axios.delete(`http://43.203.226.5/api/posts/${postId}/`)
                 .then(function () {
                     console.log('게시물이 성공적으로 삭제되었습니다:', postId);
                     getPosts(); // 게시물 목록을 갱신합니다
