@@ -7,8 +7,7 @@
 .idea
 config.py
 .env
-
-./data/postgres
+data/
 
 ### macOS ###
 # General
