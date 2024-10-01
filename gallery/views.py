@@ -2,22 +2,28 @@ from rest_framework import generics
 from .models import Post
 from .serializers import PostSerializer
 from django.shortcuts import render
-# from .models import Gallery
 from django.http import JsonResponse
+
 
 class PostListCreateView(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+
 class PostDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    
+
+
 def index(request):
     return render(request, 'gallery/index.html')
 
+
 def get_post(request):
-    databases = ['default', 'postgres'] 
+    databases = ['default', 'postgres']
     for db in databases:
         try:
             # 기본적으로 'default'에서 먼저 시도
