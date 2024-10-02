@@ -11,32 +11,29 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import environ
 import os
-from pathlib import Path
-
-
+from datetime import timedelta
 
 env = environ.Env(
-    # set casting, default value
+    # 기본값을 설정하거나 강제할 수 있습니다.
     DEBUG=(bool, False)
 )
-
-
 
 # Set the project base directory
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Take environment variables from .env file
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
-# False if not in os.environ because of casting above
-DEBUG = env('DEBUG')
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
-# Raises Django's ImproperlyConfigured
-# exception if SECRET_KEY not in os.environ
-SECRET_KEY = env('SECRET_KEY')
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = env("SECRET_KEY")
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = env("DEBUG")
+print(DEBUG)
 ALLOWED_HOSTS = ['43.203.226.5', '127.0.0.1', 'localhost',]
 
 
@@ -89,14 +86,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, "db.sqlite3"),
-    },
-    'postgres': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.sqlite3' if env('DEBUG') == 'True' else 'django.db.backends.postgresql',
+
+        # postgres
         'NAME': env('POSTGRES_DB'),
         'USER': env('POSTGRES_USER'),
         'PASSWORD': env('POSTGRES_PASSWORD'),
@@ -104,9 +98,6 @@ DATABASES = {
         'PORT': env('POSTGRES_PORT'),
     }
 }
-
-
-DATABASE_ROUTERS = ['config.database_routers.MultiDBRouter']
 
 
 # Password validation
