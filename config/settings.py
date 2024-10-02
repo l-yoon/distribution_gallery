@@ -22,7 +22,6 @@ env = environ.Env(
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 # Quick-start development settings - unsuitable for production
@@ -30,9 +29,9 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env("SECRET_KEY")
-
+print(SECRET_KEY)
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env("DEBUG")
+DEBUG = env("DJANGO_DEBUG")
 print(DEBUG)
 ALLOWED_HOSTS = ['43.203.226.5', '127.0.0.1', 'localhost',]
 
@@ -88,7 +87,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3' if env('DEBUG') == 'True' else 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.sqlite3' if env('DJANGO_DEBUG') == 'True' else 'django.db.backends.postgresql',
 
         # postgres
         'NAME': env('POSTGRES_DB'),
