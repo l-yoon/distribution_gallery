@@ -28,6 +28,7 @@ jobs:
     - name: Run Tests
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        POSTGRES_HOST: "43.203.226.5"
         DJANGO_DEBUG: "True"
       run: |
         python manage.py test
