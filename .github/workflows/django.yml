@@ -34,5 +34,5 @@ jobs:
         POSTGRES_HOST: ${{secrets.HOST}}
         POSTGRES_PORT: 5432
         DJANGO_DEBUG: "True"
-      run:
+      run: |
         python manage.py test
