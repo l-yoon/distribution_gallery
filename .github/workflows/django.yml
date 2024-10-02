@@ -26,6 +26,13 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run Tests
-      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      env:
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        POSTGRES_DB: ${{ secrets.DB_NAME }}
+        POSTGRES_USER: ${{ secrets.DB_USER }}
+        POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        POSTGRES_HOST: ${{secrets.HOST}}
+        POSTGRES_PORT: 5432
+        DJANGO_DEBUG: "True"
       run: |
         python manage.py test
