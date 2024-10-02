@@ -86,10 +86,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3' if env('DJANGO_DEBUG') == 'True' else 'django.db.backends.postgresql',
-
-        # postgres
+    "dev": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+    },
+    'production': {
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': env('POSTGRES_DB'),
         'USER': env('POSTGRES_USER'),
         'PASSWORD': env('POSTGRES_PASSWORD'),
@@ -98,6 +100,7 @@ DATABASES = {
     }
 }
 
+DATABASES['default'] = DATABASES['dev' if DEBUG else 'production']
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
